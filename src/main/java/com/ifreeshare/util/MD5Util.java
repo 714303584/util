@@ -1,6 +1,4 @@
 package com.ifreeshare.util;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +9,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zhuss
+ * @date 2016年9月9日下午3:17:01
+ * @description The MD5 calculation file
+ */
+
 public class MD5Util {
 	
 	
@@ -19,7 +23,7 @@ public class MD5Util {
 	 * @param file
 	 * @return
 	 */
-	public static String getFileMD5(File file) {
+	public static String getFileIdentification(File file,String algorithm) {
 		if (!file.isFile()) {
 			return null;
 		}
@@ -29,7 +33,7 @@ public class MD5Util {
 		byte buffer[] = new byte[10240];
 		int len;
 		try {
-			digest = MessageDigest.getInstance("MD5");
+			digest = MessageDigest.getInstance(algorithm);
 			in = new FileInputStream(file);
 			while ((len = in.read(buffer)) != -1) {
 				digest.update(buffer, 0, len);
@@ -49,8 +53,48 @@ public class MD5Util {
 	}
 	
 	public static String getFileMD5(String file){
-		return getFileMD5(new File(file));
+		return getFileIdentification(new File(file),"MD5");
 	}
+	
+	public static String getFileMD5(File file){
+		return getFileIdentification(file,"MD5");
+	}
+	
+	
+	public static String getFileSHA1(String file){
+		return getFileIdentification(new File(file),"SHA1");
+	}
+	
+	public static String getFileSHA1(File file){
+		return getFileIdentification(file,"SHA1");
+	}
+	
+	public static String getFileSHA256(String file){
+		return getFileIdentification(new File(file),"SHA-256");
+	}
+	
+	public static String getFileSHA256(File file){
+		return getFileIdentification(file,"SHA-256");
+	}
+	
+	
+	public static String getFileSHA384(String file){
+		return getFileIdentification(new File(file),"SHA-384");
+	}
+	
+	public static String getFileSHA384(File file){
+		return getFileIdentification(file,"SHA-384");
+	}
+	
+	public static String getFileSHA512(String file){
+		return getFileIdentification(new File(file),"SHA-512");
+	}
+	
+	public static String getFileSHA512(File file){
+		return getFileIdentification(file,"SHA-512");
+	}
+	
+	
 	
 	/**
 	 * 获取文件夹中的文件的MD5值
@@ -58,7 +102,7 @@ public class MD5Util {
 	 * @param listChild
 	 * @return
 	 */
-	public static  Map<String,String> getDirMD5(File file, boolean listChild){
+	public static  Map<String,String> getFileIdentification(File file, boolean listChild,String algorithm){
 		if(! file.isDirectory()){
 			return null;
 		}
@@ -70,9 +114,9 @@ public class MD5Util {
 		for (int i = 0; i < files.length; i++) {
 			File file2 = files[i];
 			if(file2.isDirectory() && listChild){
-				map.putAll(getDirMD5(file2, listChild));
+				map.putAll(getFileIdentification(file2, listChild,algorithm));
 			}else{
-				md5 = getFileMD5(file2);
+				md5 = getFileIdentification(file2,algorithm);
 				if(md5 != null){
 					map.put(file2.getPath(), md5);
 				}
@@ -80,9 +124,13 @@ public class MD5Util {
 		}
 		return map;
 	}
+	
+	
+	
+	
 
 	
 	public static void main(String[] args) {
-		System.out.println(MD5Util.getFileMD5("D:\\pdfbox-app-1.8.10.jar"));
+		System.out.println(MD5Util.getFileMD5(new File("G:\\Java\\m2\\repository\\antlr\\antlr\\2.7.7\\antlr-2.7.7.jar")));
 	}
 }
