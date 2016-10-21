@@ -176,6 +176,9 @@ public class ZipUtil {
 	            			throw new Exception(rarFileName + " IS ENCRYPTED!");
 	            		} 
 	            		String fileName = fh.getFileNameW();
+	            		if(fileName == null || fileName.trim().length() ==0)
+	            			fileName = fh.getFileNameString();
+	            		System.out.println(fileName);
 	            		if(fileName != null && fileName.trim().length() > 0){
 	            			String saveFileName = outFilePath+"\\"+fileName;
 		            		File saveFile = new File(saveFileName);
@@ -192,6 +195,7 @@ public class ZipUtil {
 		            			fos.flush();
 		            			fos.close();
 		            		} catch (RarException e) { 
+		            			e.printStackTrace();
 			            		if(e.getType().equals(RarExceptionType.notImplementedYet)){ 
 			            		} 
 		            		}finally{ 
