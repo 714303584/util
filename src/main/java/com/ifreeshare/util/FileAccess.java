@@ -9,24 +9,48 @@ import java.io.OutputStream;
 
 import co.paralleluniverse.fibers.Suspendable;
 
+/**
+ * Package for file operation
+ * @author zhuss
+ * @date 2016-10-21-11:37:59
+ */
 public class FileAccess {
 
-	public static boolean Move(File srcFile, String destPath) {
-		// Destination directory
-		File dir = new File(destPath);
-
-		// Move file to new directory
-		boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
-
-		return success;
-	}
 	
-	
+	/**
+	 * Get the name of the file
+	 * @param file fileName.type
+	 * @return
+	 */
 	public static String getFileType(String file){
 		return file.substring(file.lastIndexOf('.')+1, file.length());
 	}
 	
-
+	/**
+	 * Get the Type of the file
+	 * @param file fileName.type
+	 * @return
+	 */
+	public static String getFileName(String file){
+		return file.substring(0, file.lastIndexOf('.'));
+	}
+	
+	
+	/**
+	 * move file
+	 * @param srcFile source file
+	 * @param destPath
+	 * @return
+	 */
+	public static boolean Move(File srcFile, String destPath) {
+		File dir = new File(destPath);
+		// Move file to new directory
+		boolean success = srcFile.renameTo(new File(dir, srcFile.getName()));
+		return success;
+	}
+	
+	
+	
 	public static boolean Move(String srcFile, String destPath) {
 		// File (or directory) to be moved
 		File file = new File(srcFile);
@@ -39,7 +63,13 @@ public class FileAccess {
 
 		return success;
 	}
-
+	
+	
+	/**
+	 * copy file
+	 * @param oldPath source file 
+	 * @param newPath  target file 
+	 */
 	public static void Copy(String oldPath, String newPath) {
 		try {
 			int bytesum = 0;
@@ -63,7 +93,7 @@ public class FileAccess {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void Copy(File oldfile, String newPath) {
 		try {
 			int bytesum = 0;
@@ -91,7 +121,7 @@ public class FileAccess {
 	 * 创建目录： 目录存在返回true，目录不存在，则创建目录，返回创建的结果。
 	 * 			若所要创建的目录已存在切不为目录类型，则返回false.
 	 * @param dirPath 需要创建的目录的名称。
-	 * @return
+	 * @return boolean Exist or create success is True, other false;
 	 */
 	public static boolean createMkdir(String dirPath){
 		File file = new File(dirPath);
@@ -106,15 +136,6 @@ public class FileAccess {
 		}
 	}
 	
-	
-	@Suspendable
-	public static void streamCopy(InputStream ins,OutputStream  os) throws IOException{
-		  	byte[] buffer = new byte[1024];
-		  	int  byteRead = 0;
-		  	while ((byteRead = ins.read(buffer)) != -1) {
-		  		os.write(buffer, 0, byteRead);
-		  	}
-	}
 	
 	
 	

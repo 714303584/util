@@ -2,13 +2,11 @@ package com.ifreeshare.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -136,6 +134,20 @@ public class ZipUtil {
 		bis.close();
 		zis.close();
 
+	}
+	
+	
+	/**
+	 * 
+	 * @param zipFile
+	 *            To unzip the files
+	 * @param outputPath
+	 *            Extract the location
+	 */
+	public static void  zipDecompressing(String zipPath, String outputPath)
+			throws IOException {
+		File zipFile = new File(zipPath);
+		zipDecompressing(zipFile, outputPath);
 	}
 
 	

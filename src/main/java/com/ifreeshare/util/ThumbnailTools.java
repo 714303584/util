@@ -213,6 +213,14 @@ public class ThumbnailTools {
     public static void main(String[] agrs) {
         //zoomPicture("E:\\1.jpg","E:\\test.jpg",60, 80);
         getThumbnail("E:\\gaoqingpic\\jpg\\38946.jpg","E:\\gaoqingpic\\thumbnail\\test.jpg",200, 200);
+        
+        
+        try {
+			Image image = getBMPImage("E:\\gaoqingpic\\jpg\\38946.jpg");
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
     }
 
 }
