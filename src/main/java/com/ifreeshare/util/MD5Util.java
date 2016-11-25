@@ -131,6 +131,8 @@ public class MD5Util {
 
 	
 	public static void main(String[] args) {
+		System.out.println(MD5Util.getFileSHA512(new File("G:\\Java\\m2\\repository\\antlr\\antlr\\2.7.7\\antlr-2.7.7.jar")));
+		System.out.println(MD5Util.getFileSHA1(new File("G:\\Java\\m2\\repository\\antlr\\antlr\\2.7.7\\antlr-2.7.7.jar")));
 		System.out.println(MD5Util.getFileMD5(new File("G:\\Java\\m2\\repository\\antlr\\antlr\\2.7.7\\antlr-2.7.7.jar")));
 	}
 }

@@ -123,7 +123,7 @@ public class FileAccess {
 	 * @param dirPath 需要创建的目录的名称。
 	 * @return boolean Exist or create success is True, other false;
 	 */
-	public static boolean createMkdir(String dirPath){
+	public static boolean createDir(String dirPath){
 		File file = new File(dirPath);
 		if(file.exists()){
 			if(file.isDirectory()){
