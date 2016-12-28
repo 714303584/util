@@ -1,7 +1,173 @@
 package com.ifreeshare.util;
 
+/**
+ * Get system information
+ * @author zhuss
+ */
 public class SystemUtil {
 	
+	/**
+	 * Java runtime environment provider
+	 * @return --- Java runtime environment provider
+	 */
+	public String getJavaVendor(){
+		return System.getProperty("java.vendor");
+	}
+	
+	/**
+	 * Java runtime environment provider URL
+	 * @returnJ --- Java runtime environment provider URL
+	 */
+	public String getJavaVendorUrl(){
+		return System.getProperty("java.vendor.url");
+	}
+	
+	
+	/**
+	 * Java installation directory
+	 * @return --- Java installation directory
+	 */
+	public String getJavaHome(){
+		return System.getProperty("java.home");
+	}
+	
+	
+	/**
+	 * Java virtual machine specification version
+	 * @return --- Java virtual machine specification version
+	 */
+	public String getJavaVmSpecificationVersion(){
+		return System.getProperty("java.vm.specification.version");
+	}
+	
+	
+	/**
+	 * The version number of  Java class format 
+	 * @return --- The version number of  Java class format 
+	 */
+	public String getJavaClassVersion(){
+		return System.getProperty("java.class.version");
+	}
+	
+	
+	/**
+	 * The Java class path
+	 * A third-party class library is listed
+	 * @return --- The Java class path
+	 */
+	public String getJavaClassPath(){
+		return System.getProperty("java.class.path");
+	}
+	
+	/**
+	 * The list of paths searched when loading the library
+	 * @return --- The list of paths searched when loading the library
+	 */
+	public String getJavaLibraryPath(){
+		return System.getProperty("java.library.path");
+	}
+	
+	/**
+	 * The default temporary file path
+	 * @return --- The default temporary file path
+	 */
+	public String getJavaIoPath(){
+		return System.getProperty("java.io.tmpdir");
+	}
+	
+	
+	/**
+	 * The name of the JIT compiler to use
+	 * @return --- The name of the JIT compiler to use
+	 */
+	public String getCompiler(){
+		return System.getProperty("java.compiler");
+	}
+	
+	
+	/**
+	 * The path to one or more extension directories
+	 * @return --- The path to one or more extension directories
+	 */
+	public String getExtDirs(){
+		return System.getProperty("java.ext.dirs");
+	}
+	
+	/**
+	 * The name of the operating system
+	 * @return --- The name of the operating system
+	 */
+	public String getOsName(){
+		return System.getProperty("os.name");
+	}
+	
+	
+	/**
+	 * The architecture of the operating system
+	 * @return --- The architecture of the operating system
+	 */
+	public String getOsArch(){
+		return System.getProperty("os.arch");
+	}
+	
+	/**
+	 * The version of the operating system
+	 * @return --- The version of the operating system
+	 */
+	public String getOsVersion(){
+		return System.getProperty("os.version");
+	}
+	
+	/**
+	 * The file separator for the operating system
+	 * @return --- The file separator for the operating system
+	 */
+	public String getFileSeparator(){
+		return System.getProperty("file.separator");
+	}
+	
+	/**
+	 * The path separator for the operating system
+	 * @return --- The path separator for the operating system
+	 */
+	public String getPathSeparator(){
+		return System.getProperty("path.separator");
+	}
+	
+	
+	/**
+	 * The behavior of the operating system
+	 * @return --- The behavior of the operating system
+	 */
+	public String getLineSeparator(){
+		return System.getProperty("line.separator");
+	}
+	
+	
+	/**
+	 * The user's account name
+	 * @return --- The user's account name
+	 */
+	public String getUserName(){
+		return System.getProperty("user.name");
+	}
+	
+	
+	/**
+	 * The user's home directory
+	 * @return --- The user's home directory
+	 */
+	public String getUserHome(){
+		return System.getProperty("user.home");
+	}
+	
+	/**
+	 * The current working directory
+	 * @return --- The current working directory
+	 */
+	public String getUserDir(){
+		return System.getProperty("user.dir");
+	}
 	
 	public static void main(String[] args) {
 		System.out.println("Java 运行时环境供应商:/n"+System.getProperty("java.vendor"));
