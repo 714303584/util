@@ -1,5 +1,8 @@
 package com.ifreeshare.util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * Get system information
  * @author zhuss
@@ -10,7 +13,7 @@ public class SystemUtil {
 	 * Java runtime environment provider
 	 * @return --- Java runtime environment provider
 	 */
-	public String getJavaVendor(){
+	public static String getJavaVendor(){
 		return System.getProperty("java.vendor");
 	}
 	
@@ -18,8 +21,8 @@ public class SystemUtil {
 	 * Java runtime environment provider URL
 	 * @returnJ --- Java runtime environment provider URL
 	 */
-	public String getJavaVendorUrl(){
-		return System.getProperty("java.vendor.url");
+	public static String getJavaVendorUrl(){
+		return  System.getProperty("java.vendor.url");
 	}
 	
 	
@@ -27,7 +30,7 @@ public class SystemUtil {
 	 * Java installation directory
 	 * @return --- Java installation directory
 	 */
-	public String getJavaHome(){
+	public static String getJavaHome(){
 		return System.getProperty("java.home");
 	}
 	
@@ -36,7 +39,7 @@ public class SystemUtil {
 	 * Java virtual machine specification version
 	 * @return --- Java virtual machine specification version
 	 */
-	public String getJavaVmSpecificationVersion(){
+	public static String getJavaVmSpecificationVersion(){
 		return System.getProperty("java.vm.specification.version");
 	}
 	
@@ -45,7 +48,7 @@ public class SystemUtil {
 	 * The version number of  Java class format 
 	 * @return --- The version number of  Java class format 
 	 */
-	public String getJavaClassVersion(){
+	public static String getJavaClassVersion(){
 		return System.getProperty("java.class.version");
 	}
 	
@@ -55,7 +58,7 @@ public class SystemUtil {
 	 * A third-party class library is listed
 	 * @return --- The Java class path
 	 */
-	public String getJavaClassPath(){
+	public static String getJavaClassPath(){
 		return System.getProperty("java.class.path");
 	}
 	
@@ -63,7 +66,7 @@ public class SystemUtil {
 	 * The list of paths searched when loading the library
 	 * @return --- The list of paths searched when loading the library
 	 */
-	public String getJavaLibraryPath(){
+	public static String getJavaLibraryPath(){
 		return System.getProperty("java.library.path");
 	}
 	
@@ -71,7 +74,7 @@ public class SystemUtil {
 	 * The default temporary file path
 	 * @return --- The default temporary file path
 	 */
-	public String getJavaIoPath(){
+	public static String getJavaIoPath(){
 		return System.getProperty("java.io.tmpdir");
 	}
 	
@@ -80,7 +83,7 @@ public class SystemUtil {
 	 * The name of the JIT compiler to use
 	 * @return --- The name of the JIT compiler to use
 	 */
-	public String getCompiler(){
+	public static String getCompiler(){
 		return System.getProperty("java.compiler");
 	}
 	
@@ -89,7 +92,7 @@ public class SystemUtil {
 	 * The path to one or more extension directories
 	 * @return --- The path to one or more extension directories
 	 */
-	public String getExtDirs(){
+	public static String getExtDirs(){
 		return System.getProperty("java.ext.dirs");
 	}
 	
@@ -97,7 +100,7 @@ public class SystemUtil {
 	 * The name of the operating system
 	 * @return --- The name of the operating system
 	 */
-	public String getOsName(){
+	public static String getOsName(){
 		return System.getProperty("os.name");
 	}
 	
@@ -106,7 +109,7 @@ public class SystemUtil {
 	 * The architecture of the operating system
 	 * @return --- The architecture of the operating system
 	 */
-	public String getOsArch(){
+	public static String getOsArch(){
 		return System.getProperty("os.arch");
 	}
 	
@@ -114,7 +117,7 @@ public class SystemUtil {
 	 * The version of the operating system
 	 * @return --- The version of the operating system
 	 */
-	public String getOsVersion(){
+	public static String getOsVersion(){
 		return System.getProperty("os.version");
 	}
 	
@@ -122,7 +125,7 @@ public class SystemUtil {
 	 * The file separator for the operating system
 	 * @return --- The file separator for the operating system
 	 */
-	public String getFileSeparator(){
+	public static String getFileSeparator(){
 		return System.getProperty("file.separator");
 	}
 	
@@ -130,7 +133,7 @@ public class SystemUtil {
 	 * The path separator for the operating system
 	 * @return --- The path separator for the operating system
 	 */
-	public String getPathSeparator(){
+	public static String getPathSeparator(){
 		return System.getProperty("path.separator");
 	}
 	
@@ -139,7 +142,7 @@ public class SystemUtil {
 	 * The behavior of the operating system
 	 * @return --- The behavior of the operating system
 	 */
-	public String getLineSeparator(){
+	public static String getLineSeparator(){
 		return System.getProperty("line.separator");
 	}
 	
@@ -148,7 +151,7 @@ public class SystemUtil {
 	 * The user's account name
 	 * @return --- The user's account name
 	 */
-	public String getUserName(){
+	public static String getUserName(){
 		return System.getProperty("user.name");
 	}
 	
@@ -157,7 +160,7 @@ public class SystemUtil {
 	 * The user's home directory
 	 * @return --- The user's home directory
 	 */
-	public String getUserHome(){
+	public static String getUserHome(){
 		return System.getProperty("user.home");
 	}
 	
@@ -165,8 +168,21 @@ public class SystemUtil {
 	 * The current working directory
 	 * @return --- The current working directory
 	 */
-	public String getUserDir(){
+	public static String getUserDir(){
 		return System.getProperty("user.dir");
+	}
+	
+	/**
+	 * Get Host Address 
+	 * @return host address
+	 */
+	public static String getLocalAddress(){
+		 try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -189,6 +205,7 @@ public class SystemUtil {
 		System.out.println("用户的账户名称:/n"+System.getProperty("user.name"));
 		System.out.println("用户的主目录:/n"+System.getProperty("user.home"));
 		System.out.println("用户的当前工作目录:/n"+System.getProperty("user.dir"));
+		System.out.println("主机的本地IP地址:/n"+getLocalAddress());
 	}
 
 }
