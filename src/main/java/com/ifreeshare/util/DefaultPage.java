@@ -15,7 +15,7 @@ public class DefaultPage<T> {
 	private int pageNo = 0;
 
 	/** 数据总个数 */
-	private int totalCount = 0;
+	private long totalCount = 0;
 	
 	
 	/**
@@ -26,7 +26,7 @@ public class DefaultPage<T> {
 	 * @param totalCount 数据总个数
 	 */
 	public DefaultPage(
-			int pageNo, int pageSize, List<T> elements, int totalCount) {
+			int pageNo, int pageSize, List<T> elements, long totalCount) {
 		this.pageNo = pageNo;
 		this.pageSize = pageSize;
 		this.elements = elements;
@@ -80,7 +80,13 @@ public class DefaultPage<T> {
 	 * @see com.harmony.framework.query.generic.IGenericPage#hasNextPage()
 	 */
 	public boolean hasNextPage() {
-		return elements == null ? false : elements.size() > getPageSize();
+		if(pageNo > 1 ){
+			return pageSize* (pageNo+1) < totalCount ;
+		}else{
+			return 1*pageSize < totalCount;
+		}
+		
+//		return elements == null ? false : ;
 	}
 
 	/* (non-Javadoc)
@@ -94,7 +100,7 @@ public class DefaultPage<T> {
 	 * @see com.harmony.framework.query.generic.IGenericPage#getLastPageNo()
 	 */
 	public int getLastPageNo() {
-		double totalResults = new Integer(getTotalCount())
+		double totalResults = new Long(getTotalCount())
 				.doubleValue();
 		return (totalResults % getPageSize()==0)?new Double(Math.floor(totalResults / getPageSize())).intValue():(new Double(Math.floor(totalResults / getPageSize())).intValue()+1);
 	}
@@ -109,7 +115,7 @@ public class DefaultPage<T> {
 	/* (non-Javadoc)
 	 * @see com.harmony.framework.query.generic.IGenericPage#getTotalCount()
 	 */
-	public int getTotalCount() {
+	public long getTotalCount() {
 		return totalCount;
 	}
 
@@ -123,7 +129,7 @@ public class DefaultPage<T> {
 	/* (non-Javadoc)
 	 * @see com.harmony.framework.query.generic.IGenericPage#getThisPageLastElementNumber()
 	 */
-	public int getThisPageLastElementNumber() {
+	public Long getThisPageLastElementNumber() {
 		int fullPage = getThisPageFirstElementNumber() + getPageSize() - 1;
 		return getTotalCount() < fullPage
 				? getTotalCount() : fullPage;
@@ -133,14 +139,24 @@ public class DefaultPage<T> {
 	 * @see com.harmony.framework.query.generic.IGenericPage#getNextPageNo()
 	 */
 	public int getNextPageNo() {
-		return getPageNo() + 1;
+		if(hasNextPage()){
+			return getPageNo() + 1;
+		}else{
+			return getPageNo();
+		}
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see com.harmony.framework.query.generic.IGenericPage#getPreviousPageNo()
 	 */
 	public int getPreviousPageNo() {
-		return getPageNo() - 1;
+		if(hasPreviousPage()){
+			return getPageNo() - 1;	
+		}else{
+			return getPageNo();
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -158,8 +174,8 @@ public class DefaultPage<T> {
 	}
 	
 	
-	public int getPageCount(){
-		int pageCount = totalCount / pageSize;
+	public long getPageCount(){
+		long pageCount = totalCount / pageSize;
 		if(totalCount%pageSize > 0) pageCount++;
 		return pageCount;
 	}
