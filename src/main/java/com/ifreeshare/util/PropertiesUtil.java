@@ -3,6 +3,8 @@ package com.ifreeshare.util;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -20,8 +22,17 @@ public class PropertiesUtil {
 	 */
 	public static Properties getProperties(String properties) throws FileNotFoundException, IOException{
 		Properties result = new Properties(); 
-		result.load(new FileInputStream(properties));
+		result.load(new InputStreamReader(new FileInputStream(properties),"UTF-8"));
 		return result;
 	}
+	
+	
+	
+	public static Properties getProperties(InputStream is) throws FileNotFoundException, IOException{
+		Properties result = new Properties(); 
+		result.load(new InputStreamReader(is,"UTF-8"));
+		return result;
+	}
+	
 	
 }
