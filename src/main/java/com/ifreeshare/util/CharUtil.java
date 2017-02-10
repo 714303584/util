@@ -5,22 +5,28 @@ import java.util.regex.Pattern;
 public class CharUtil {
 
 	public static void main(String[] args) {
-		String[] strArr = new String[] { "www.micmiu.com", "!@#$%^&*()_+{}[]|\"'?/:;<>,.", "！￥……（）——：；“”‘’《》，。？、", "不要啊", "やめて", "韩佳人", "???" };
-		for (String str : strArr) {
-			System.out.println("===========> 测试字符串：" + str);
-			System.out.println("正则判断结果：" + isChineseByREG(str) + " -- " + isChineseByName(str));
-			System.out.println("Unicode判断结果 ：" + isChinese(str));
-			System.out.println("详细判断列表：");
-			char[] ch = str.toCharArray();
-			for (int i = 0; i < ch.length; i++) {
-				char c = ch[i];
-				System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
-			}
-		}
+//		String[] strArr = new String[] { "www.micmiu.com", "!@#$%^&*()_+{}[]|\"'?/:;<>,.", "！￥……（）——：；“”‘’《》，。？、", "不要啊", "やめて", "韩佳人", "???" };
+//		for (String str : strArr) {
+//			System.out.println("===========> 测试字符串：" + str);
+//			System.out.println("正则判断结果：" + isChineseByREG(str) + " -- " + isChineseByName(str));
+//			System.out.println("Unicode判断结果 ：" + isChinese(str));
+//			System.out.println("详细判断列表：");
+//			char[] ch = str.toCharArray();
+//			for (int i = 0; i < ch.length; i++) {
+//				char c = ch[i];
+//				System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
+//				System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
+//			}
+//		}
+//		
+		
+		
+		System.out.println(isEnglish("朱aaaaaaaaaaaaa"));
+		
 	}
 
 	// 根据Unicode编码完美的判断中文汉字和符号
-	private static boolean isChinese(char c) {
+	public static boolean isChinese(char c) {
 		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
 		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
 				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
@@ -62,5 +68,11 @@ public class CharUtil {
 		Pattern pattern = Pattern.compile(reg);
 		return pattern.matcher(str.trim()).find();
 	}
+
+	
+	public static boolean isEnglish(String word) {
+		 char c = word.charAt(0);
+		 return  (c >= 'A'&& c <= 'Z') || (c >= 'a' && c <= 'z');
+		}
 
 }
