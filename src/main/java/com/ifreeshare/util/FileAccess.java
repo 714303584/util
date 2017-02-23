@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import co.paralleluniverse.fibers.Suspendable;
 
@@ -33,6 +34,33 @@ public class FileAccess {
 	 */
 	public static String getFileName(String file){
 		return file.substring(0, file.lastIndexOf('.'));
+	}
+	
+	
+	public static void getFiles(File dir, List<File> list, String fileType){
+		File[] files =  dir.listFiles();
+		if(files == null) return;
+		for (int i = 0; i < files.length; i++) {
+			File file = files[i];
+			if(fileType == null){
+				if(file.isDirectory()){
+					getFiles(file, list, fileType);
+				}
+				list.add(file);
+				continue;
+			}
+			
+			if(file.isDirectory()){
+				getFiles(file, list, fileType);
+			}else{
+				String fileName = file.getName();
+				String type = getFileType(fileName);
+				if(fileType.equals(type)){
+					list.add(file);
+//					System.out.println(file.getAbsolutePath());
+				}
+			}
+		}
 	}
 	
 	

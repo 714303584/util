@@ -62,6 +62,12 @@ public class SystemUtil {
 		return System.getProperty("java.class.path");
 	}
 	
+	
+
+	public static String[] getLibsPath(){
+		return System.getProperty("java.class.path").split(";");
+	}
+	
 	/**
 	 * The list of paths searched when loading the library
 	 * @return --- The list of paths searched when loading the library
@@ -171,6 +177,7 @@ public class SystemUtil {
 	public static String getUserDir(){
 		return System.getProperty("user.dir");
 	}
+	
 	
 	/**
 	 * Get Host Address 
