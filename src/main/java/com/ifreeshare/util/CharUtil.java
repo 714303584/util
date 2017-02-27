@@ -1,28 +1,35 @@
 package com.ifreeshare.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 public class CharUtil {
 
 	public static void main(String[] args) {
-//		String[] strArr = new String[] { "www.micmiu.com", "!@#$%^&*()_+{}[]|\"'?/:;<>,.", "！￥……（）——：；“”‘’《》，。？、", "不要啊", "やめて", "韩佳人", "???" };
-//		for (String str : strArr) {
-//			System.out.println("===========> 测试字符串：" + str);
-//			System.out.println("正则判断结果：" + isChineseByREG(str) + " -- " + isChineseByName(str));
-//			System.out.println("Unicode判断结果 ：" + isChinese(str));
-//			System.out.println("详细判断列表：");
-//			char[] ch = str.toCharArray();
-//			for (int i = 0; i < ch.length; i++) {
-//				char c = ch[i];
-//				System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
-//				System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
-//			}
-//		}
-//		
+		// String[] strArr = new String[] { "www.micmiu.com",
+		// "!@#$%^&*()_+{}[]|\"'?/:;<>,.", "！￥……（）——：；“”‘’《》，。？、", "不要啊", "やめて",
+		// "韩佳人", "???" };
+		// for (String str : strArr) {
+		// System.out.println("===========> 测试字符串：" + str);
+		// System.out.println("正则判断结果：" + isChineseByREG(str) + " -- " +
+		// isChineseByName(str));
+		// System.out.println("Unicode判断结果 ：" + isChinese(str));
+		// System.out.println("详细判断列表：");
+		// char[] ch = str.toCharArray();
+		// for (int i = 0; i < ch.length; i++) {
+		// char c = ch[i];
+		// System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
+		// System.out.println(c + " --> " + (isChinese(c) ? "是" : "否"));
+		// }
+		// }
+		//
+
+//		System.out.println(isEnglish("朱aaaaaaaaaaaaa"));
 		
+		System.out.println(StringFilter("one-puch man"));
 		
-		System.out.println(isEnglish("朱aaaaaaaaaaaaa"));
-		
+
 	}
 
 	// 根据Unicode编码完美的判断中文汉字和符号
@@ -69,10 +76,20 @@ public class CharUtil {
 		return pattern.matcher(str.trim()).find();
 	}
 
-	
 	public static boolean isEnglish(String word) {
-		 char c = word.charAt(0);
-		 return  (c >= 'A'&& c <= 'Z') || (c >= 'a' && c <= 'z');
-		}
+		char c = word.charAt(0);
+		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+	}
+
+	// 过滤特殊字符
+	public static String StringFilter(String str) throws PatternSyntaxException {
+		// 只允许字母和数字
+		// String regEx = "[^a-zA-Z0-9]";
+		// 清除掉所有特殊字符
+		String regEx = "[`~!@#$%^&*()+-= |{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		return m.replaceAll("").trim();
+	}
 
 }
