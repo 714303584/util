@@ -1,5 +1,7 @@
 package com.ifreeshare.util;
 
+import io.vertx.core.Vertx;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -212,15 +214,22 @@ public class ThumbnailTools {
 
     public static void main(String[] agrs) {
         //zoomPicture("E:\\1.jpg","E:\\test.jpg",60, 80);
-        getThumbnail("E:\\gaoqingpic\\jpg\\38946.jpg","E:\\gaoqingpic\\thumbnail\\test.jpg",200, 200);
-        
-        
-        try {
-			Image image = getBMPImage("E:\\gaoqingpic\\jpg\\38946.jpg");
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+    	
+    	String path = "G:/nginx-1.9.4/html/iresource/cjk";
+       File file = new File(path);
+       if(file.isDirectory()){
+    	   File[] files = file.listFiles();
+    	   for (int i = 0; i < files.length; i++) {
+			File jpg = files[i];
+			getThumbnail(path+"/"+jpg.getName(),path+"/thumbnail/"+jpg.getName(),300, 300);
 		}
+    	   
+       }
+//			Image image = getBMPImage("E:\\gaoqingpic\\jpg\\38946.jpg");
+//		} catch (Exception e) {
+//			// TODO 自动生成的 catch 块
+//			e.printStackTrace();
+//		}
     }
 
 }
