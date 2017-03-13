@@ -28,14 +28,18 @@ public class ReflectUtil {
 		List<File> dirs = new ArrayList<File>();
 		while (resources.hasMoreElements()) {
 			URL urlResource = resources.nextElement();
-			System.out.println(urlResource.toString());
-			System.out.println(urlResource.getFile());
-			System.out.println(new File(urlResource.getFile()).isDirectory());
-
-			URL url = ReflectUtil.class.getResource("/com/ifreeshare/framework/web/controller");
-
-			url.getContent();
-			dirs.add(new File(urlResource.getFile()));
+			String jarPaht = urlResource.toString();
+			if(jarPaht.contains("!")){
+				String jarpath = jarPaht.split("!")[0];
+				if (jarPaht.contains(":")){
+					String[] pathArray = jarpath.split(":");
+					int length = pathArray.length;
+					jarpath = pathArray[length - 1];
+				}
+				dirs.add(new File(jarpath));
+			}else{
+				dirs.add(new File(urlResource.getFile()));
+			}
 		}
 		List<Class> classes = new ArrayList<Class>();
 		for (File directory : dirs) {
@@ -44,16 +48,20 @@ public class ReflectUtil {
 		return classes;
 	}
 
+	/**
+	 * Automatically scan classes under the package
+	 * @param directory ------- Directory or Jar file
+	 * @param packageName	-------- Package name
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
 	@SuppressWarnings("rawtypes")
 	private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
 		List<Class> classes = new ArrayList<Class>();
-		if (!directory.isDirectory()) {
+		//Not a directory, ------- jar
+		if (!directory.isDirectory()) { 
 			String rPath = packageName.replace('.', '/') + "/";
 			try {
-				System.out.println("getpath:" + directory.getPath());
-				System.out.println("getCanonicalPath:" + directory.getCanonicalPath());
-				System.out.println("getAbsolutePath:" + directory.getAbsolutePath());
-				System.out.println("toPath:" + directory.toPath());
 				FileInputStream fis = new FileInputStream(directory);
 				JarInputStream jis = new JarInputStream(fis, false);
 				JarEntry e = null;
@@ -70,6 +78,7 @@ public class ReflectUtil {
 			}
 			return classes;
 		}else{
+			// it is a directory.
 			File[] files = directory.listFiles();
 			for (File file : files) {
 				if (file.isDirectory()) {
@@ -85,10 +94,21 @@ public class ReflectUtil {
 	}
 
 	public static void main(String[] args) throws IOException {
-		List<String> cls = getClassInPackage("java.util");
-		for (String s : cls) {
-			System.out.println(s);
-		}
+//		List<String> cls = getClassInPackage("java.util");
+//		for (String s : cls) {
+//			System.out.println(s);
+//		}
+		
+			String file = "file:/D:/spider2/wcc.jar!/com/ifreeshare/framework/web/controller";
+			
+			File directory = new File(file);
+			
+			System.out.println("getpath:" + directory.getPath());
+			System.out.println("getCanonicalPath:" + directory.getCanonicalPath());
+			System.out.println("getAbsolutePath:" + directory.getAbsolutePath());
+			System.out.println("toPath:" + directory.toPath());
+			
+
 
 	}
 
@@ -152,5 +172,7 @@ public class ReflectUtil {
 
 		ClassLoader classload = Thread.currentThread().getContextClassLoader();
 	}
-
+	
+	
+	
 }
